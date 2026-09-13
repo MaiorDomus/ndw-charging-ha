@@ -66,14 +66,16 @@ class NdwChargingConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     def async_get_options_flow(
         config_entry: config_entries.ConfigEntry,
     ) -> "NdwChargingOptionsFlow":
-        return NdwChargingOptionsFlow(config_entry)
+        return NdwChargingOptionsFlow()
 
 
 class NdwChargingOptionsFlow(config_entries.OptionsFlow):
-    """Let the update interval be tuned after setup."""
+    """Let the update interval be tuned after setup.
 
-    def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
-        self.config_entry = config_entry
+    No __init__ override: since HA 2025.12, `config_entry` is a read-only
+    property the framework populates itself after construction - assigning
+    to it (the old boilerplate pattern) raises AttributeError.
+    """
 
     async def async_step_init(self, user_input: dict[str, Any] | None = None) -> FlowResult:
         if user_input is not None:

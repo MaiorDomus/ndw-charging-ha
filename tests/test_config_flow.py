@@ -7,7 +7,11 @@ from unittest.mock import AsyncMock, patch
 from homeassistant import config_entries, data_entry_flow
 from homeassistant.core import HomeAssistant
 
-from custom_components.ndw_charging.const import CONF_LOCATION_ID, DOMAIN
+from custom_components.ndw_charging.const import (
+    CONF_LOCATION_ID,
+    CONF_UPDATE_INTERVAL,
+    DOMAIN,
+)
 from custom_components.ndw_charging.coordinator import LocationNotFound
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
@@ -87,3 +91,30 @@ async def test_user_flow_aborts_on_duplicate_location(
 
     assert result["type"] == data_entry_flow.FlowResultType.ABORT
     assert result["reason"] == "already_configured"
+
+
+async def test_options_flow_updates_interval(
+    hass: HomeAssistant, sample_location: dict
+) -> None:
+    """Regression test: HA 2025.12 made OptionsFlow.config_entry read-only.
+
+    A custom __init__ assigning self.config_entry (the old boilerplate)
+    raises AttributeError as soon as this flow is opened.
+    """
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        unique_id=sample_location["id"],
+        data={CONF_LOCATION_ID: sample_location["id"]},
+    )
+    entry.add_to_hass(hass)
+
+    result = await hass.config_entries.options.async_init(entry.entry_id)
+    assert result["type"] == data_entry_flow.FlowResultType.FORM
+    assert result["step_id"] == "init"
+
+    result = await hass.config_entries.options.async_configure(
+        result["flow_id"], {CONF_UPDATE_INTERVAL: 300}
+    )
+
+    assert result["type"] == data_entry_flow.FlowResultType.CREATE_ENTRY
+    assert entry.options[CONF_UPDATE_INTERVAL] == 300

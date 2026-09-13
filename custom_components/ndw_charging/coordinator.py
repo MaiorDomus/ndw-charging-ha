@@ -9,11 +9,12 @@ from typing import Any
 
 import aiohttp
 
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .const import DATA_URL, DOMAIN, REQUEST_TIMEOUT
+from .const import CONF_LOCATION_ID, DATA_URL, DOMAIN, REQUEST_TIMEOUT
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -53,14 +54,17 @@ async def fetch_location(hass: HomeAssistant, location_id: str) -> dict[str, Any
 class NdwChargingCoordinator(DataUpdateCoordinator[dict[str, Any]]):
     """Coordinator that polls the NDW DOT-NL feed for one charging location."""
 
-    def __init__(self, hass: HomeAssistant, location_id: str, update_interval: int) -> None:
+    def __init__(
+        self, hass: HomeAssistant, config_entry: ConfigEntry, update_interval: int
+    ) -> None:
+        self.location_id = config_entry.data[CONF_LOCATION_ID]
         super().__init__(
             hass,
             _LOGGER,
-            name=f"{DOMAIN}_{location_id}",
+            config_entry=config_entry,
+            name=f"{DOMAIN}_{self.location_id}",
             update_interval=timedelta(seconds=update_interval),
         )
-        self.location_id = location_id
 
     async def _async_update_data(self) -> dict[str, Any]:
         try:

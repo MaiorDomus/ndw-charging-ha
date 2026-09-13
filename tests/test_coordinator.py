@@ -7,11 +7,22 @@ import pytest
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import UpdateFailed
 
+from pytest_homeassistant_custom_component.common import MockConfigEntry
+
+from custom_components.ndw_charging.const import CONF_LOCATION_ID, DOMAIN
 from custom_components.ndw_charging.coordinator import (
     LocationNotFound,
     NdwChargingCoordinator,
     fetch_location,
 )
+
+
+def _mock_entry(hass: HomeAssistant, location_id: str) -> MockConfigEntry:
+    entry = MockConfigEntry(
+        domain=DOMAIN, unique_id=location_id, data={CONF_LOCATION_ID: location_id}
+    )
+    entry.add_to_hass(hass)
+    return entry
 
 
 class _FakeResponse:
@@ -63,7 +74,8 @@ async def test_fetch_location_not_found(hass: HomeAssistant, sample_feed_bytes: 
 async def test_coordinator_update_success(
     hass: HomeAssistant, sample_feed_bytes: bytes, sample_location: dict
 ) -> None:
-    coordinator = NdwChargingCoordinator(hass, sample_location["id"], update_interval=600)
+    entry = _mock_entry(hass, sample_location["id"])
+    coordinator = NdwChargingCoordinator(hass, entry, update_interval=600)
 
     with _patch_session(sample_feed_bytes):
         await coordinator.async_refresh()
@@ -75,7 +87,8 @@ async def test_coordinator_update_success(
 async def test_coordinator_update_raises_update_failed_when_missing(
     hass: HomeAssistant, sample_feed_bytes: bytes
 ) -> None:
-    coordinator = NdwChargingCoordinator(hass, "NLLOC_DOES_NOT_EXIST", update_interval=600)
+    entry = _mock_entry(hass, "NLLOC_DOES_NOT_EXIST")
+    coordinator = NdwChargingCoordinator(hass, entry, update_interval=600)
 
     with _patch_session(sample_feed_bytes):
         await coordinator.async_refresh()

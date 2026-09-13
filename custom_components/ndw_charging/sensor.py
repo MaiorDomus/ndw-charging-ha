@@ -36,7 +36,7 @@ STATUS_ICONS = {
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
-    coordinator: NdwChargingCoordinator = hass.data[DOMAIN][entry.entry_id]
+    coordinator: NdwChargingCoordinator = entry.runtime_data
     evse_ids = [evse["evse_id"] for evse in coordinator.data.get("evses", [])]
     async_add_entities(
         NdwChargePointSensor(coordinator, entry, evse_id) for evse_id in evse_ids

@@ -70,7 +70,7 @@ async def test_sensors_become_unavailable_when_update_fails(
     entry = await _setup_entry(hass, sample_location)
 
     with _patch_fetch_location(side_effect=LocationNotFound(sample_location["id"])):
-        await hass.data[DOMAIN][entry.entry_id].async_refresh()
+        await entry.runtime_data.async_refresh()
     await hass.async_block_till_done()
 
     states = hass.states.async_all("sensor")
@@ -86,7 +86,6 @@ async def test_unload_entry_removes_sensors(
     await hass.async_block_till_done()
 
     assert entry.state is ConfigEntryState.NOT_LOADED
-    assert entry.entry_id not in hass.data.get(DOMAIN, {})
     assert all(
         s.state == STATE_UNAVAILABLE for s in hass.states.async_all("sensor")
     )
