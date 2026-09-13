@@ -1,4 +1,8 @@
+<img src="icons/icon.png" width="64" height="64" alt="NDW Charging Point icon" align="left">
+
 # NDW Charging Point (DOT-NL) for Home Assistant
+
+<br clear="left">
 
 A Home Assistant custom integration that reports live status (`available` /
 `charging` / `outoforder` / ...) for Dutch public EV charging points, sourced
