@@ -31,6 +31,10 @@ workarounds were ultimately proxying anyway.
   one location's record.
 - One sensor is created per EVSE (charge point) found at that location.
 
+The integration ships its own icon (`custom_components/ndw_charging/brand/`),
+shown next to it on the Integrations page via HA 2026.3+'s inline brand
+image support - no submission to home-assistant/brands needed.
+
 ## Installation
 
 ### Via HACS (recommended)

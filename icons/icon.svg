@@ -1,10 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <!-- Location pin (NDW = National Access Point / mobility location data)
-       with a charging bolt inside. Palette (#f05323 / #1b6a80) is inspired
-       by the two-tone accent colors in NDW's own pictogram set at ndw.nu,
-       not a reproduction of their logo/wordmark. -->
-  <path d="M32 58 L23 39 A17 17 0 1 1 41 39 Z"
-        fill="none" stroke="#1b6a80" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
-  <path d="M35 14 L23 32 L31 32 L27 50 L45 28 L35 28 Z"
-        fill="#f05323"/>
+       with a charging-bolt cutout. Solid single-color treatment, in the
+       spirit of NDW's own wordmark (a solid-orange mark), using an accent
+       orange inspired by the two-tone palette in NDW's pictogram set at
+       ndw.nu - not a reproduction of their logo. -->
+  <path d="M32 58 L23 39 A17 17 0 1 1 41 39 Z M33 14 L25 25 L30 25 L28 36 L39 23 L33 23 Z"
+        fill="#f05323" fill-rule="evenodd"/>
 </svg>
