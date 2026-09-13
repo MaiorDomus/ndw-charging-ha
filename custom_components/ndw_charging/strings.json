@@ -1,0 +1,30 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "NDW Charging Point (DOT-NL)",
+        "description": "Enter the OCPI Location ID of the Dutch public charge point to track (from NDW's national open data feed, opendata.ndw.nu - see the repository README for how to find it). One sensor will be created per charge point found at this location.",
+        "data": {
+          "location_id": "Location ID"
+        }
+      }
+    },
+    "error": {
+      "location_not_found": "That Location ID was not found in the current NDW feed.",
+      "cannot_connect": "Could not download or parse the NDW feed.",
+      "unknown": "Unexpected error."
+    },
+    "abort": {
+      "already_configured": "This location is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "update_interval": "Update interval in seconds (minimum 120)"
+        }
+      }
+    }
+  }
+}
