@@ -1,4 +1,4 @@
-"""Config flow for the NDW Charging Point (DOT-NL) integration."""
+"""Config flow for the NDW Charging Point integration."""
 from __future__ import annotations
 
 import logging

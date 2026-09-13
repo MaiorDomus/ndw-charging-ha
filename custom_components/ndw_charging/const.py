@@ -1,4 +1,4 @@
-"""Constants for the NDW Charging Point (DOT-NL) integration."""
+"""Constants for the NDW Charging Point integration."""
 
 DOMAIN = "ndw_charging"
 

@@ -1,4 +1,4 @@
-"""Sensor platform for the NDW Charging Point (DOT-NL) integration.
+"""Sensor platform for the NDW Charging Point integration.
 
 Creates one sensor per EVSE found at the configured location.
 """

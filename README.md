@@ -1,6 +1,6 @@
 <img src="icons/icon.png" width="64" height="64" alt="NDW Charging Point icon" align="left">
 
-# NDW Charging Point (DOT-NL) for Home Assistant
+# NDW Charging Point for Home Assistant
 
 <br clear="left">
 
@@ -44,7 +44,7 @@ repository:
 
 1. HACS -> the "..." menu (top right) -> **Custom repositories**.
 2. Repository: `https://github.com/MaiorDomus/ndw-charging-ha`, category: **Integration**.
-3. Find "NDW Charging Point (DOT-NL)" in HACS and install it.
+3. Find "NDW Charging Point" in HACS and install it.
 4. Restart Home Assistant.
 5. **Settings -> Devices & Services -> Add Integration -> "NDW Charging Point"**.
 

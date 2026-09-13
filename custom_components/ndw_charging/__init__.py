@@ -1,4 +1,4 @@
-"""The NDW Charging Point (DOT-NL) integration."""
+"""The NDW Charging Point integration."""
 from __future__ import annotations
 
 from homeassistant.config_entries import ConfigEntry

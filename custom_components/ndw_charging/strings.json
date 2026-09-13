@@ -2,7 +2,7 @@
   "config": {
     "step": {
       "user": {
-        "title": "NDW Charging Point (DOT-NL)",
+        "title": "NDW Charging Point",
         "description": "Enter the OCPI Location ID of the Dutch public charge point to track (from NDW's national open data feed, opendata.ndw.nu - see the repository README for how to find it). One sensor will be created per charge point found at this location.",
         "data": {
           "location_id": "Location ID"
