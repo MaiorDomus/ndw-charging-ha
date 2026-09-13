@@ -31,19 +31,14 @@ workarounds were ultimately proxying anyway.
 
 ### Via HACS (recommended)
 
-This repo is private, so it won't show up in HACS's default store - add it
-manually as a custom repository:
+This repo isn't in HACS's default store, so add it manually as a custom
+repository:
 
 1. HACS -> the "..." menu (top right) -> **Custom repositories**.
 2. Repository: `https://github.com/MaiorDomus/ndw-charging-ha`, category: **Integration**.
 3. Find "NDW Charging Point (DOT-NL)" in HACS and install it.
 4. Restart Home Assistant.
 5. **Settings -> Devices & Services -> Add Integration -> "NDW Charging Point"**.
-
-Since the repo is private, HACS needs a GitHub token with access to it
-configured (Settings -> Devices & Services -> HACS -> Configure, or the
-`GITHUB_TOKEN`/PAT used when HACS itself was set up) - a public repo wouldn't
-need this, but this one is intentionally kept private.
 
 ### Manual
 
@@ -56,3 +51,14 @@ To find a location's ID: download
 and search the JSON array for the address or coordinates you want - each
 entry's `"id"` field (e.g. `"NLLOC012345"`) is the Location ID to enter in
 the config flow.
+
+## Development
+
+```bash
+pip install -r requirements_test.txt
+pytest tests/ -v
+```
+
+Tests mock the NDW feed download, so they run instantly and need no
+network access. CI runs the same suite on every push/PR via
+`.github/workflows/test.yml`.
